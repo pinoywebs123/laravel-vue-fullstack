@@ -14,7 +14,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from , next) => {
-  let userAuth = true;
+  let userAuth = false;
   if(userAuth){
     next();
   }else{
