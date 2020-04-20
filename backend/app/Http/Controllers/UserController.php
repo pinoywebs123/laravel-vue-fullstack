@@ -7,6 +7,10 @@ use App\User;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     
     public function getAllUsers()
     {
@@ -27,5 +31,11 @@ class UserController extends Controller
     		}
     	}
     	return response()->json($deletedUser);
+    }
+    public function books()
+    {
+    	$users = User::all();
+
+    	return response()->json($users);
     }
 }
