@@ -22,7 +22,7 @@
 
      <v-card>
     <v-tabs
-     
+     v-if="this.$store.state.isAuth == false"
     >
       <v-tabs-slider ></v-tabs-slider>
 
@@ -35,6 +35,14 @@
         <router-link to="/register" >Register</router-link>
       </v-tab>
     </v-tabs>
+
+    <v-tabs v-if="this.$store.state.isAuth == true">
+       <v-tab>
+        <div class="my-2">
+          <v-btn text small @click="postLogout()">Logout</v-btn>
+        </div>
+      </v-tab>
+    </v-tabs>
   </v-card>
     </v-app-bar>
 
@@ -45,11 +53,27 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
   name: 'App',
   data: () => ({
     //
   }),
+  methods: {
+    postLogout(){
+      axios.get('/auth/logout')
+        .then(response => {
+          console.log(response);
+          if(response.status == 200){
+            localStorage.removeItem("token");
+            this.$router.push('/login');
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
 };
 </script>

@@ -57,7 +57,7 @@ data () {
     },
     methods: {
         getUserList() {
-            axios.get('http://127.0.0.1:8000/api/user')
+            axios.get('/user')
                 .then(response => {
                     
                     this.desserts = response.data;
@@ -68,7 +68,7 @@ data () {
         },
         removeUser() {
            
-            axios.post('http://127.0.0.1:8000/api/user/delete/',this.selected)
+            axios.post('/user/delete/',this.selected)
                 .then(response => {
                     console.log(response.data);
                     if(response.status == 200) {

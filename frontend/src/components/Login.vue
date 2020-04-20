@@ -8,7 +8,7 @@
             <v-card-text>
             
             <p class="display-1 text--primary">
-               Login Form
+               Login Form {{this.$store.getters.isAuth}}
             </p>
            
             <div class="text--primary">
@@ -41,9 +41,16 @@
     }),
     methods: {
         getUserList() {
-            axios.post('http://127.0.0.1:8000/api/auth/login', this.userData)
+            axios.post('/auth/login', this.userData)
                 .then(response => {
                     console.log(response);
+                    if(response.status == 200){
+                      
+                        this.$store.state.isAuth = true;
+                        localStorage.setItem("token", JSON.stringify(response.data.access_token));
+                        this.$router.push({path: '/'});
+                    
+                    }
                 })
                 .catch(error => {
                     console.log(error.response);
