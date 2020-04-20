@@ -12,7 +12,15 @@ const router = new VueRouter({
   mode: 'history',
 
 });
- 
+
+router.beforeEach((to, from , next) => {
+  let userAuth = true;
+  if(userAuth){
+    next();
+  }else{
+    next('/login');
+  }
+})
 
 new Vue({
   vuetify,
